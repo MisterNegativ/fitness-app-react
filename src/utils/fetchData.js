@@ -1,5 +1,6 @@
+
 export const exerciseOptions = {
-  method: 'GET',  
+    method: 'GET',  
     headers: {
         'X-RapidAPI-Key': 'ff33ae0779msh2be7dc5cae73e3fp193e9ajsnfe199ebf34b7',
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
@@ -17,6 +18,21 @@ export const youtubeOptions = {
 export const fetchData = async (url, options) => {
     const response =  await fetch(url, options);
     const data = await response.json();
-
+    
     return data;
+}
+const axios = require('axios');
+
+try {
+	const response = await axios.request(youtubeOptions);
+	console.log(response.data);
+} catch (error) {
+	console.error(error);
+}
+
+try {
+	const response = await axios.request(exerciseOptions);
+	console.log(response.data);
+} catch (error) {
+	console.error(error);
 }
