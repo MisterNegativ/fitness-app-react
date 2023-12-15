@@ -7,24 +7,27 @@ import ExerciseCard from './ExerciseCard';
 import Loader from './Loader';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1); // это состояние, которое хранит текущий номер страницы для отображения. Изначально установлено значение 1.
+  const [exercisesPerPage] = useState(6); // которое хранит количество упражнений, которые вы хотите отображать на каждой странице. 
 
+  //это хук в React, который позволяет выполнять побочные эффекты в функциональных компонентах. Побочные эффекты включают в себя такие действия, как загрузка данных, подписка на внешние события, изменение DOM, и многое другое. Внутри useEffect выполняется асинхронная функция fetchExercisesData, которая отправляет запрос к API в зависимости от выбранной части тела (bodyPart).
   useEffect(() => {
     const fetchExercisesData = async () => {
       let exercisesData = [];
   
-      if (bodyPart !== 'all') {
+      if (bodyPart === 'all') {
+        exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
+      } else {
         exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions);
-        setExercises(exercisesData);
       }
+  
+      setExercises(exercisesData);
     };
   
     fetchExercisesData();
-  }, [bodyPart, setExercises]);
+  }, [bodyPart, setExercises]); 
   
 
-  // Pagination
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = exercises.slice(indexOfFirstExercise, indexOfLastExercise);

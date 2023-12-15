@@ -27,12 +27,12 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
                || item.target.toLowerCase().includes(search)
                || item.equipment.toLowerCase().includes(search)
                || item.bodyPart.toLowerCase().includes(search),
-      );
+      ); //метод .includes() для проверки вхождения подстроки (поискового запроса) в различные свойства каждого элемента
 
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
 
       setSearch('');
-      setExercises(searchedExercises);
+      setExercises(searchedExercises);//устанавливаются новые упражнения в состояние exercises. Теперь exercises будет содержать только те упражнения, которые соответствуют условиям поиска, т.е., массив searchedExercises.
     }
   };
 
